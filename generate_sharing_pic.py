@@ -10,7 +10,7 @@ try:
     import cStringIO as StringIO
 except ImportError:
     import StringIO
-
+W, H = 750, 968
 
 def get_qr_pic(qr_token):
     pass
@@ -58,10 +58,33 @@ class SharingPicGenerator(object):
         for task in self.paste_list:
             self.bk_im.paste(task[0], task[1])
 
-    def add_text_task(self, text, text_xy, *font_args):
-        print text
+    def add_text_task(self, text_args, *font_args):
+        """
+        中文必须是Unicode
+        如果是向右对其的，需要xy是右上角的点，x是最右边距离左边框的像素数
+        :param text_args:
+        :param font_args:
+        :return:
+        """
+        print text_args  # 这里传参数要用dict来做
         _font = ImageFont.truetype(*font_args)
-        self.text_list.append(tuple([text_xy, unicode(text), _font]))
+        draw = ImageDraw.Draw(self.bk_im)
+        if text_args['align'] == 'center':
+            # w, h = _font.getsize(text_args['text'])
+            # os = _font.getoffset(text_args['text'])
+            w, h = draw.textsize(text_args['text'], font=_font)
+            # w0 = len(text_args['text']) * font_args[-1]
+            new_xy = ((W - w)/2, text_args['xy'][-1])
+            self.text_list.append(tuple([new_xy, unicode(text_args['text']), _font]))
+
+        elif text_args['align'] == 'right':
+            # 由右上角计算出左上角
+            w, h = draw.textsize(text_args['text'], font=_font)
+            new_xy = ((text_args['xy'][0] - w), text_args['xy'][-1])
+            self.text_list.append(tuple([new_xy, unicode(text_args['text']), _font]))
+        else:
+
+            self.text_list.append(tuple([text_args['xy'], unicode(text_args['text']), _font, text_args['align']]))
 
     def __add_text(self):
 
@@ -78,20 +101,24 @@ class SharingPicGenerator(object):
 
 
 if __name__ == '__main__':
-    with open('/Users/hector/PycharmProjects/qingting/sharing_pic_generator/assets/Group 2 Copy.png', 'rb') as f_in:
+    with open('/Users/hector/PycharmProjects/qingting/sharing_pic_generator/common/worldcup_background.png', 'rb') as f_in:
         tmp = f_in.read()
 
     io_t = BytesIO()
     io_t.write(tmp)
     tmp_foo = SharingPicGenerator(io_t)
 
-    tmp_foo.add_paste_task('assets/结束录音@3x.png', (210, 210, 330, 330))
-    import emoji
+    # tmp_foo.add_paste_task('/Users/hector/PycharmProjects/qingting/sharing_pic_generator/common/default_photo.png', (210, 210, 330, 330))
+    # import emoji
 
-    tmp_foo.add_text_task(emoji.emojize(u'这里supposed有一个emoji——>:grinning_face:<-'), (100,400), "/Users/hector/PycharmProjects/qingting/sharing_pic_generator/PingFang.ttc", 40)
-    tmp_foo.add_text_task(u"\U0001f300", (400,400), "/Users/hector/PycharmProjects/qingting/sharing_pic_generator/PingFang.ttc", 40)
+    text_args = {'text': u'李浩三', 'xy': (0, 75), 'align': 'center'}
+    tmp_foo.add_text_task(text_args, "/Users/hector/PycharmProjects/qingting/fifa_generate_pic_test/苹方黑体-准-简.ttf", 45)
+    text_args = {'text': u'李浩三四五', 'xy': (W - 102, 544), 'align': 'right'}
+    tmp_foo.add_text_task(text_args, "/Users/hector/PycharmProjects/qingting/fifa_generate_pic_test/苹方黑体-准-简.ttf", 28)
+
+    # tmp_foo.add_text_task(u"\U0001f300", (400,400), "/Users/hector/PycharmProjects/qingting/sharing_pic_generator/PingFang.ttc", 40)
     # # u"\U0001f300"
     # Phoebe🎄🎄
 
-    with open('out_test_pingfang.png', 'wb') as f_o:
+    with open('out_test_pingfang_2.png', 'wb') as f_o:
         f_o.write(tmp_foo.generate().getvalue())
