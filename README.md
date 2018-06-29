@@ -21,13 +21,15 @@
 
 参数：
 1. pasted_pic_fp：文件路径或BytesIO
-2. region_box:包含四个整数的tuple.图片在背景图片上的四个边距背景图片左边（竖线）或上边（横线）的像素距离,按顺序为左、上、右、下的位置。
-eg：(210, 210, 330, 330)
+2. region_box:包含四个整数的tuple.图片在背景图片上的四个边距背景图片左边（竖线）或上边（横线）的像素距离,按顺序为左、上、右、下的位置。eg：(210, 210, 330, 330)
+
+示例：
 >tmp_foo.add_paste_task('sharing_pic_generator/common/default_photo.png', (210, 210, 330, 330))
 >
-说明：图片在粘贴之前会进行resize，会导致图片比例发生变化，建议裁剪后调用。
-4. 添加文字任务
 
+说明：图片在粘贴之前会进行resize，会导致图片比例发生变化，建议裁剪后调用。
+
+4. 添加文字任务
 >pic_foo.add_text_task(_text_args_, _*font_args_)
 >
 
@@ -36,8 +38,10 @@ text_args示例：<br>
 >
 
 参数：
+
 _text_args_: dict,text为unicode类型，algin为对齐模式，支持left，center，right模式。
-xy：包含两个整数的tuple。
+
+_xy_：包含两个整数的tuple。
 1. 对于algin = left：x,y文本框左上角距离左边和上边的距离
 2. 对于algin = center：x无所谓，y为文本框上边离背景图片上沿的像素距离
 3. 对于algin = right：x为文本框**右边**距离背景图片左边的像素距离，y为文本框上边离背景图片上沿的像素距离
