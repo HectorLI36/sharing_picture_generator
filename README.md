@@ -7,15 +7,15 @@
 
 ## 使用方法
 
-1.开始
+### 1.开始
 >from PicGenerator import SharingPicGenerator as Generator
 >
 
-2.初始化,导入背景图片。传入背景图片参数为文件路径或BytesIO类型。w,h分别为背景图片的宽度和高度。
+### 2.初始化,导入背景图片。传入背景图片参数为文件路径或BytesIO类型。w,h分别为背景图片的宽度和高度。
 >pic_foo = Generator(_background_fp_, w, h)
 >
 
-3.添加粘贴图片任务。
+### 3.添加粘贴图片任务。
 >pic_foo.add_paste_task(_pasted_pic_fp_, _region_box_)
 >
 
@@ -29,7 +29,8 @@
 
 说明：图片在粘贴之前会进行resize，会导致图片比例发生变化，建议裁剪后调用。
 
-4. 添加文字任务
+### 4. 添加文字任务
+
 >pic_foo.add_text_task(_text_args_, _*font_args_)
 >
 
@@ -45,18 +46,21 @@ _xy_：包含两个整数的tuple。
 1. 对于algin = left：x,y文本框左上角距离左边和上边的距离
 2. 对于algin = center：x无所谓，y为文本框上边离背景图片上沿的像素距离
 3. 对于algin = right：x为文本框**右边**距离背景图片左边的像素距离，y为文本框上边离背景图片上沿的像素距离
-index：字体font_family中的index，详情请参考具体的字体。
+
+_index_：字体font_family中的index，详情请参考具体的字体。
 
 _font_args_:可根据Pillow的要求任意添加，必须包含字体的路径，文本大小(前两个参数)
+
 添加文字任务接口示例：
 >pic_foo.add_text_task(text_args, 'common/assets/PingFang.ttc', 28)
 
-5.生成图片：
+### 5.生成图片：
 >rs = pic_foo.generate()
 >
+
 返回值为BytesIO类型
 
 
-6.进阶
+### 6.进阶
 
 可将参数统一写到一个.py或.json文件中，可提高效率和准确性。参考本目录下的*pic_config.py*
