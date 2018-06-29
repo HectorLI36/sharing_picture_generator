@@ -6,14 +6,18 @@
 
 
 ## 使用方法
+
 1.开始
 >from PicGenerator import SharingPicGenerator as Generator
 >
+
 2.初始化,导入背景图片。传入背景图片参数为文件路径或BytesIO类型。w,h分别为背景图片的宽度和高度。
 >pic_foo = Generator(_background_fp_, w, h)
 >
+
 3.添加粘贴图片任务。
 >pic_foo.add_paste_task(_pasted_pic_fp_, _region_box_)
+>
 
 参数：
 1. pasted_pic_fp：文件路径或BytesIO
