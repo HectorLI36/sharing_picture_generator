@@ -27,11 +27,14 @@ eg：(210, 210, 330, 330)
 >
 说明：图片在粘贴之前会进行resize，会导致图片比例发生变化，建议裁剪后调用。
 4. 添加文字任务
+
 >pic_foo.add_text_task(_text_args_, _*font_args_)
 >
+
 text_args示例：<br>
 >text_args = {'text': u'测试文字', 'xy': (0, 75), 'align': 'center'}
 >
+
 参数：
 _text_args_: dict,text为unicode类型，algin为对齐模式，支持left，center，right模式。
 xy：包含两个整数的tuple。
@@ -41,12 +44,11 @@ xy：包含两个整数的tuple。
 index：字体font_family中的index，详情请参考具体的字体。
 
 _font_args_:可根据Pillow的要求任意添加，必须包含字体的路径，文本大小(前两个参数)
-
-eg：
+添加文字任务接口示例：
 >pic_foo.add_text_task(text_args, 'common/assets/PingFang.ttc', 28)
 
 5.生成图片：
->pic_foo.generate()
+>rs = pic_foo.generate()
 >
 返回值为BytesIO类型
 
