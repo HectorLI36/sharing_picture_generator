@@ -92,7 +92,7 @@ class SharingPicGenerator(object):
 
 
 if __name__ == '__main__':
-    with open('/Users/hector/PycharmProjects/qingting/sharing_pic_generator/common/worldcup_background.png',
+    with open('background.png',
               'rb') as f_in:
         tmp = f_in.read()
 
@@ -100,17 +100,14 @@ if __name__ == '__main__':
     io_t.write(tmp)
     tmp_foo = SharingPicGenerator(io_t)
 
-    tmp_foo.add_paste_task('/Users/hector/PycharmProjects/qingting/sharing_pic_generator/common/default_photo.png', (210, 210, 330, 330))
+    tmp_foo.add_paste_task('default_photo.png', (210, 210, 330, 330))
     # import emoji
 
     text_args = {'text': u'测试', 'xy': (0, 75), 'align': 'center'}
-    tmp_foo.add_text_task(text_args, "/Users/hector/PycharmProjects/qingting/fifa_generate_pic_test/苹方黑体-准-简.ttf", 45)
+    tmp_foo.add_text_task(text_args, pic_config.DEFAULT_FONT, 45)
     text_args = {'text': u'测试', 'xy': (W - 102, 544), 'align': 'right'}
-    tmp_foo.add_text_task(text_args, "/Users/hector/PycharmProjects/qingting/fifa_generate_pic_test/苹方黑体-准-简.ttf", 28)
+    tmp_foo.add_text_task(text_args, pic_config.DEFAULT_FONT, 28)
 
-    # tmp_foo.add_text_task(u"\U0001f300", (400,400), "/Users/hector/PycharmProjects/qingting/sharing_pic_generator/PingFang.ttc", 40)
-    # # u"\U0001f300"
-    # Phoebe🎄🎄
 
     with open('out_test_pingfang_2.png', 'wb') as f_o:
         f_o.write(tmp_foo.generate().getvalue())

@@ -1,11 +1,11 @@
 # coding=utf-8
 # DO NOT MAKE CHANGES!
-BACKGROUND_PIC_FP = 'common/assets/worldcup_background.png'
+BACKGROUND_PIC_FP = 'common/assets/background.png'
 DEFAULT_MAIN_FP = 'common/assets/new_default.png'
 DEFAULT_FONT = 'common/assets/PingFang.ttc'
 
-SLOGAN = u'我为{}声援！你敢进来点赞吗？'  # type: unicode
-TO = u'TO：{}'
+SLOGAN = 'sloga？'  # type: unicode
+TO = 'TO：{}'
 
 PIC_LOCATIONS = {
         'main': (118, 412, 298, 646),
